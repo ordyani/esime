@@ -18,6 +18,12 @@ on:
         description: "Athena deployment correlation id"
         required: false
         type: string
+      # The deploy wizard's Version/tag selection is sent as a `branch` input.
+      # It MUST be declared or GitHub rejects the dispatch with 422.
+      branch:
+        description: "Version/ref selected in the Athena deploy wizard"
+        required: false
+        type: string
 
 jobs:
   deploy:
@@ -35,6 +41,7 @@ jobs:
         run: |
           echo "provider=${{ inputs.provider }}"
           echo "deployment_id=${{ inputs.deployment_id }}"
+          echo "branch=${{ inputs.branch }}"
 
       # Adjust the filename below if your script is not called main.py.
       - name: Run the app
